@@ -3,6 +3,8 @@
 
 #include "PlayerCharacter.h"
 
+#include "Gun.h"
+
 // Sets default values
 APlayerCharacter::APlayerCharacter()
 {
@@ -16,6 +18,15 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	if (GunClass)
+	{
+		EquipedGun = GetWorld()->SpawnActor<AGun>(GunClass);
+		GetMesh()->HideBoneByName(TEXT("weapon_r"), EPhysBodyOp::PBO_None);
+		EquipedGun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform,
+		                              TEXT("WeaponSocket"));
+		EquipedGun->SetOwner(this);
+	}
+
 	Health = MaxHealth;
 }
 
@@ -62,4 +73,8 @@ void APlayerCharacter::LookRightRate(float Val)
 
 void APlayerCharacter::Shoot()
 {
+	if (EquipedGun)
+	{
+		EquipedGun->PullTrigger();
+	}
 }

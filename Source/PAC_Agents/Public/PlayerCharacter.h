@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
 
+class AGun;
+
 UCLASS()
 class PAC_AGENTS_API APlayerCharacter : public ACharacter
 {
@@ -38,11 +40,11 @@ private:
 	UPROPERTY(EditAnywhere)
 	float RotationRate;
 
-	//UPROPERTY(EditDefaultsOnly)
-	//TSubclassOf<class AGun> GunClass;
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AGun> GunClass;
 
-	//UPROPERTY()
-	//AGun* EquipedGun;
+	UPROPERTY()
+	AGun* EquipedGun;
 
 	UPROPERTY(EditDefaultsOnly)
 	float MaxHealth;
