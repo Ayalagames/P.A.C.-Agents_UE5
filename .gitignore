@@ -79,4 +79,4 @@ Plugins/Developer/RiderLink/
 Content/*
 
 #But do not ignore the BlazeBlaster content
-!Content/PAC_Agents/
+!Content/_PAC_Agents/
