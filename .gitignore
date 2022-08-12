@@ -75,3 +75,8 @@ DerivedDataCache/*
 .idea/
 Content/ThirdParty/
 Plugins/Developer/RiderLink/
+
+Content/*
+
+#But do not ignore the BlazeBlaster content
+!Content/PAC_Agents/
