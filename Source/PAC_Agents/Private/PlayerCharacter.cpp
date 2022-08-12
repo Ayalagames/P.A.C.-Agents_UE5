@@ -20,8 +20,7 @@ void APlayerCharacter::BeginPlay()
 	Super::BeginPlay();
 	if (GunClass)
 	{
-		EquipedGun = GetWorld()->SpawnActor<AGun>(GunClass);
-		//GetMesh()->HideBoneByName(TEXT("weapon_r"), EPhysBodyOp::PBO_None);
+		EquipedGun = GetWorld()->SpawnActor<AGun>(GunClass);		
 		EquipedGun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform,
 		                              TEXT("WeaponSocket"));
 		EquipedGun->SetOwner(this);
