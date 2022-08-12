@@ -21,7 +21,7 @@ void APlayerCharacter::BeginPlay()
 	if (GunClass)
 	{
 		EquipedGun = GetWorld()->SpawnActor<AGun>(GunClass);
-		GetMesh()->HideBoneByName(TEXT("weapon_r"), EPhysBodyOp::PBO_None);
+		//GetMesh()->HideBoneByName(TEXT("weapon_r"), EPhysBodyOp::PBO_None);
 		EquipedGun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform,
 		                              TEXT("WeaponSocket"));
 		EquipedGun->SetOwner(this);
@@ -49,6 +49,22 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction(TEXT("PullTrigger"), IE_Pressed, this, &APlayerCharacter::Shoot);
+}
+
+float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+                                   AActor* DamageCauser)
+{
+	float DamageToApply = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	DamageToApply = FMath::Min(Health, DamageToApply);
+	Health -= DamageToApply;
+
+	UE_LOG(LogTemp, Warning, TEXT("auch %f"), Health)
+	return DamageToApply;
+}
+
+bool APlayerCharacter::IsDead() const
+{
+	return Health <= 0;
 }
 
 void APlayerCharacter::MoveForward(float Val)
