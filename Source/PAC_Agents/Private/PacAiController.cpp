@@ -2,18 +2,35 @@
 
 
 #include "PacAiController.h"
-
+#include "PlayerCharacter.h"
 #include "Kismet/GameplayStatics.h"
 
 void APacAiController::BeginPlay()
 {
 	Super::BeginPlay();
 	PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-	SetFocus(PlayerPawn);
 }
 
 void APacAiController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	MoveToActor(PlayerPawn, 200);
+
+	const APlayerCharacter* ControllingPawn = Cast<APlayerCharacter>(GetPawn());
+	if (ControllingPawn && ControllingPawn->IsDead())
+	{
+		ClearFocus(EAIFocusPriority::Gameplay);
+		StopMovement();
+		return;
+	}
+
+	if (LineOfSightTo(PlayerPawn))
+	{
+		SetFocus(PlayerPawn);
+		MoveToActor(PlayerPawn, 200);
+	}
+	else
+	{
+		ClearFocus(EAIFocusPriority::Gameplay);
+		StopMovement();
+	}
 }
