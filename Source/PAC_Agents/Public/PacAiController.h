@@ -15,11 +15,12 @@ class PAC_AGENTS_API APacAiController : public AAIController
 	GENERATED_BODY()
 public:
 	virtual void Tick(float DeltaSeconds) override;
+	bool IsDead() const;
 
 protected:
 	virtual void BeginPlay() override;
 
 private:
-	APawn* PlayerPawn;
-	
+	UPROPERTY(EditAnywhere)
+	UBehaviorTree* AIBehavior;
 };

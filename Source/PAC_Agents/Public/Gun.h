@@ -25,6 +25,10 @@ public:
 	void PullTrigger();	
 
 private:
+	bool GunTrace(FHitResult& Hit, FVector& ShotDirection);
+
+	AController* GetOwnerController()const;
+	
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* Root;
 
@@ -42,4 +46,10 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float Damage = 10;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase* MuzzleSound;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase* ImpactSound;
 };

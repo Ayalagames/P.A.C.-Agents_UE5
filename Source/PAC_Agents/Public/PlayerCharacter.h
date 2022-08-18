@@ -29,10 +29,11 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
-							 AActor* DamageCauser) override;
+	                         AActor* DamageCauser) override;
 
 	UFUNCTION(BlueprintPure)
 	bool IsDead() const;
+	void Shoot();
 
 private:
 	void MoveForward(float Val);
@@ -40,8 +41,6 @@ private:
 
 	void LookUpRate(float Val);
 	void LookRightRate(float Val);
-
-	void Shoot();
 
 	UPROPERTY(EditAnywhere)
 	float RotationRate;

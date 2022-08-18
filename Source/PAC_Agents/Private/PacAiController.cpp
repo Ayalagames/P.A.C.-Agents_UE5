@@ -3,34 +3,30 @@
 
 #include "PacAiController.h"
 #include "PlayerCharacter.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 void APacAiController::BeginPlay()
 {
 	Super::BeginPlay();
-	PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	if (AIBehavior)
+	{
+		RunBehaviorTree(AIBehavior);
+		GetBlackboardComponent()->SetValueAsVector(TEXT("StartLocation"), GetPawn()->GetActorLocation());
+	}
 }
 
 void APacAiController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+}
 
-	const APlayerCharacter* ControllingPawn = Cast<APlayerCharacter>(GetPawn());
-	if (ControllingPawn && ControllingPawn->IsDead())
+bool APacAiController::IsDead() const
+{
+	APlayerCharacter* ControlledCharacter = Cast<APlayerCharacter>(GetPawn());
+	if (ControlledCharacter != nullptr)
 	{
-		ClearFocus(EAIFocusPriority::Gameplay);
-		StopMovement();
-		return;
+		return ControlledCharacter->IsDead();
 	}
-
-	if (LineOfSightTo(PlayerPawn))
-	{
-		SetFocus(PlayerPawn);
-		MoveToActor(PlayerPawn, 200);
-	}
-	else
-	{
-		ClearFocus(EAIFocusPriority::Gameplay);
-		StopMovement();
-	}
+	return true;
 }

@@ -4,6 +4,8 @@
 #include "PlayerCharacter.h"
 
 #include "Gun.h"
+#include "PortalControlGameMode.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -53,11 +55,21 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
                                    AActor* DamageCauser)
 {
-	float DamageToApply = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-	DamageToApply = FMath::Min(Health, DamageToApply);
+	float DamageToApply = FMath::Min(Health, DamageAmount);
 	Health -= DamageToApply;
-
+	Super::TakeDamage(DamageToApply, DamageEvent, EventInstigator, DamageCauser);
 	UE_LOG(LogTemp, Warning, TEXT("auch %f"), Health)
+
+	if (IsDead())
+	{
+		APortalControlGameMode* GameMode = GetWorld()->GetAuthGameMode<APortalControlGameMode>();
+		if (GameMode != nullptr)
+		{
+			GameMode->PawnKilled(this);
+		}
+		DetachFromControllerPendingDestroy();
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
 	return DamageToApply;
 }
 
