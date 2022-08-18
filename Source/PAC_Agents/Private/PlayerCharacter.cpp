@@ -105,3 +105,8 @@ void APlayerCharacter::Shoot()
 		EquipedGun->PullTrigger();
 	}
 }
+
+float APlayerCharacter::GetHealthPercentage() const
+{
+	return Health / MaxHealth;
+}

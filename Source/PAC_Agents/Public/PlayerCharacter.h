@@ -35,6 +35,9 @@ public:
 	bool IsDead() const;
 	void Shoot();
 
+	UFUNCTION(BlueprintPure)
+	float GetHealthPercentage() const;
+
 private:
 	void MoveForward(float Val);
 	void MoveRight(float Val);
