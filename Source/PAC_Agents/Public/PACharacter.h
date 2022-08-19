@@ -4,18 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "PlayerCharacter.generated.h"
+#include "PACharacter.generated.h"
 
-class AGun;
+class APAGun;
 
 UCLASS()
-class PAC_AGENTS_API APlayerCharacter : public ACharacter
+class PAC_AGENTS_API APACharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
-	APlayerCharacter();
+	APACharacter();
 
 protected:
 	// Called when the game starts or when spawned
@@ -49,10 +49,10 @@ private:
 	float RotationRate;
 
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<AGun> GunClass;
+	TSubclassOf<APAGun> GunClass;
 
 	UPROPERTY()
-	AGun* EquipedGun;
+	APAGun* EquipedGun;
 
 	UPROPERTY(EditDefaultsOnly)
 	float MaxHealth;

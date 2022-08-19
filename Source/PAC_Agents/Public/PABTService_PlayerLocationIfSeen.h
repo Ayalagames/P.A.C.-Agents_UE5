@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/Services/BTService_BlackboardBase.h"
-#include "BTService_PlayerLocationIfSeen.generated.h"
+#include "PABTService_PlayerLocationIfSeen.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PAC_AGENTS_API UBTService_PlayerLocationIfSeen : public UBTService_BlackboardBase
+class PAC_AGENTS_API UPABTService_PlayerLocationIfSeen : public UBTService_BlackboardBase
 {
 	GENERATED_BODY()
 public:
-	UBTService_PlayerLocationIfSeen();
+	UPABTService_PlayerLocationIfSeen();
 
 protected:
 	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;

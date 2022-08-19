@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PlayerCharacterController.h"
+#include "PAPlayerController.h"
 
 #include "Blueprint/UserWidget.h"
 
-void APlayerCharacterController::BeginPlay()
+void APAPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	if(HudWidgetClass)
@@ -15,7 +15,7 @@ void APlayerCharacterController::BeginPlay()
 	}
 }
 
-void APlayerCharacterController::GameHasEnded(AActor* EndGameFocus, bool bIsWinner)
+void APAPlayerController::GameHasEnded(AActor* EndGameFocus, bool bIsWinner)
 {
 	Super::GameHasEnded(EndGameFocus, bIsWinner);
 	if(HudWidget)

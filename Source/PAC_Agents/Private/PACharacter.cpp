@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PlayerCharacter.h"
+#include "PACharacter.h"
 
-#include "Gun.h"
-#include "PortalControlGameMode.h"
+#include "PAGun.h"
+#include "PAPortalControlGameMode.h"
 #include "Components/CapsuleComponent.h"
 
 // Sets default values
-APlayerCharacter::APlayerCharacter()
+APACharacter::APACharacter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -17,12 +17,12 @@ APlayerCharacter::APlayerCharacter()
 }
 
 // Called when the game starts or when spawned
-void APlayerCharacter::BeginPlay()
+void APACharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	if (GunClass)
 	{
-		EquipedGun = GetWorld()->SpawnActor<AGun>(GunClass);		
+		EquipedGun = GetWorld()->SpawnActor<APAGun>(GunClass);		
 		EquipedGun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform,
 		                              TEXT("WeaponSocket"));
 		EquipedGun->SetOwner(this);
@@ -32,27 +32,27 @@ void APlayerCharacter::BeginPlay()
 }
 
 // Called every frame
-void APlayerCharacter::Tick(float DeltaTime)
+void APACharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
 // Called to bind functionality to input
-void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void APACharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &APlayerCharacter::MoveForward);
-	PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &APlayerCharacter::MoveRight);
+	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &APACharacter::MoveForward);
+	PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &APACharacter::MoveRight);
 	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis(TEXT("LookRight"), this, &APawn::AddControllerYawInput);
-	PlayerInputComponent->BindAxis(TEXT("LookUpRate"), this, &APlayerCharacter::LookUpRate);
-	PlayerInputComponent->BindAxis(TEXT("LookRightRate"), this, &APlayerCharacter::LookRightRate);
+	PlayerInputComponent->BindAxis(TEXT("LookUpRate"), this, &APACharacter::LookUpRate);
+	PlayerInputComponent->BindAxis(TEXT("LookRightRate"), this, &APACharacter::LookRightRate);
 
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ACharacter::Jump);
-	PlayerInputComponent->BindAction(TEXT("PullTrigger"), IE_Pressed, this, &APlayerCharacter::Shoot);
+	PlayerInputComponent->BindAction(TEXT("PullTrigger"), IE_Pressed, this, &APACharacter::Shoot);
 }
 
-float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+float APACharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
                                    AActor* DamageCauser)
 {
 	float DamageToApply = FMath::Min(Health, DamageAmount);
@@ -62,7 +62,7 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 
 	if (IsDead())
 	{
-		APortalControlGameMode* GameMode = GetWorld()->GetAuthGameMode<APortalControlGameMode>();
+		APAPortalControlGameMode* GameMode = GetWorld()->GetAuthGameMode<APAPortalControlGameMode>();
 		if (GameMode != nullptr)
 		{
 			GameMode->PawnKilled(this);
@@ -73,32 +73,32 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 	return DamageToApply;
 }
 
-bool APlayerCharacter::IsDead() const
+bool APACharacter::IsDead() const
 {
 	return Health <= 0;
 }
 
-void APlayerCharacter::MoveForward(float Val)
+void APACharacter::MoveForward(float Val)
 {
 	AddMovementInput(GetActorForwardVector() * Val);
 }
 
-void APlayerCharacter::MoveRight(float Val)
+void APACharacter::MoveRight(float Val)
 {
 	AddMovementInput(GetActorRightVector() * Val);
 }
 
-void APlayerCharacter::LookUpRate(float Val)
+void APACharacter::LookUpRate(float Val)
 {
 	AddControllerPitchInput(Val * RotationRate * GetWorld()->DeltaTimeSeconds);
 }
 
-void APlayerCharacter::LookRightRate(float Val)
+void APACharacter::LookRightRate(float Val)
 {
 	AddControllerYawInput(Val * RotationRate * GetWorld()->DeltaTimeSeconds);
 }
 
-void APlayerCharacter::Shoot()
+void APACharacter::Shoot()
 {
 	if (EquipedGun)
 	{
@@ -106,7 +106,7 @@ void APlayerCharacter::Shoot()
 	}
 }
 
-float APlayerCharacter::GetHealthPercentage() const
+float APACharacter::GetHealthPercentage() const
 {
 	return Health / MaxHealth;
 }

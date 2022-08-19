@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "PacAiController.generated.h"
+#include "PAAiController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PAC_AGENTS_API APacAiController : public AAIController
+class PAC_AGENTS_API APAAiController : public AAIController
 {
 	GENERATED_BODY()
 public:

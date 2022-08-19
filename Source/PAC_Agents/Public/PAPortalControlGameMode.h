@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "PortalControlGameMode.generated.h"
+#include "PAPortalControlGameMode.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PAC_AGENTS_API APortalControlGameMode : public AGameModeBase
+class PAC_AGENTS_API APAPortalControlGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 

@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "PlayerCharacterController.generated.h"
+#include "PAPlayerController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PAC_AGENTS_API APlayerCharacterController : public APlayerController
+class PAC_AGENTS_API APAPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 

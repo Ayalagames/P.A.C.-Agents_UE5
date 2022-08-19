@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PacAiController.h"
-#include "PlayerCharacter.h"
+#include "PAAiController.h"
+#include "PACharacter.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Kismet/GameplayStatics.h"
 
-void APacAiController::BeginPlay()
+void APAAiController::BeginPlay()
 {
 	Super::BeginPlay();
 	if (AIBehavior)
@@ -16,14 +16,14 @@ void APacAiController::BeginPlay()
 	}
 }
 
-void APacAiController::Tick(float DeltaSeconds)
+void APAAiController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 }
 
-bool APacAiController::IsDead() const
+bool APAAiController::IsDead() const
 {
-	APlayerCharacter* ControlledCharacter = Cast<APlayerCharacter>(GetPawn());
+	APACharacter* ControlledCharacter = Cast<APACharacter>(GetPawn());
 	if (ControlledCharacter != nullptr)
 	{
 		return ControlledCharacter->IsDead();

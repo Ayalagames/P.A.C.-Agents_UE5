@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Gun.h"
+#include "PAGun.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
-AGun::AGun()
+APAGun::APAGun()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -18,18 +18,18 @@ AGun::AGun()
 }
 
 // Called when the game starts or when spawned
-void AGun::BeginPlay()
+void APAGun::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
 // Called every frame
-void AGun::Tick(float DeltaTime)
+void APAGun::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
-void AGun::PullTrigger()
+void APAGun::PullTrigger()
 {
 	if (MuzzleFlash)
 	{
@@ -54,7 +54,7 @@ void AGun::PullTrigger()
 	}
 }
 
-bool AGun::GunTrace(FHitResult& Hit, FVector& ShotDirection)
+bool APAGun::GunTrace(FHitResult& Hit, FVector& ShotDirection)
 {
 	const AController* OwnerController = GetOwnerController();
 
@@ -71,7 +71,7 @@ bool AGun::GunTrace(FHitResult& Hit, FVector& ShotDirection)
 	return GetWorld()->LineTraceSingleByChannel(Hit, Pos, End, ECC_GameTraceChannel1, Params);
 }
 
-AController* AGun::GetOwnerController() const
+AController* APAGun::GetOwnerController() const
 {
 	APawn* OwnerPawn = Cast<APawn>(GetOwner());
 	if (OwnerPawn == nullptr)return nullptr;

@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Gun.generated.h"
+#include "PAGun.generated.h"
 
 UCLASS()
-class PAC_AGENTS_API AGun : public AActor
+class PAC_AGENTS_API APAGun : public AActor
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	AGun();
+	APAGun();
 
 protected:
 	// Called when the game starts or when spawned

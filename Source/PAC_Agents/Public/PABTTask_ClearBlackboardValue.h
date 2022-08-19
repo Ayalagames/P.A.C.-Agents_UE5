@@ -3,18 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BehaviorTree/BTTaskNode.h"
-#include "BTTask_Shoot.generated.h"
+#include "BehaviorTree/Tasks/BTTask_BlackboardBase.h"
+#include "PABTTask_ClearBlackboardValue.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PAC_AGENTS_API UBTTask_Shoot : public UBTTaskNode
+class PAC_AGENTS_API UPABTTask_ClearBlackboardValue : public UBTTask_BlackboardBase
 {
 	GENERATED_BODY()
 public:
-	UBTTask_Shoot();
+	UPABTTask_ClearBlackboardValue();
+
 protected:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 };
